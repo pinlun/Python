@@ -1,0 +1,37 @@
+# 使用 library 的 module
+# _ folder projectname
+#     |_ folder libraryname
+#         |_ file modulename (includes functions)
+from libraryname import modulename
+modulename.functionname
+
+-----------------------------------------------------------------------
+
+Foo/
+|-- bin/
+|   |-- foo
+|
+|-- foo/
+|   |-- tests/
+|   |   |-- __init__.py
+|   |   |-- test_main.py
+|   |
+|   |-- __init__.py
+|   |-- main.py
+|
+|-- docs/
+|   |-- conf.py
+|   |-- abc.rst
+|
+|-- setup.py
+|-- requirements.txt
+|-- README
+
+/scripts or /bin for that kind of command-line interface stuff
+/tests for your tests
+/lib for your C-language libraries
+/doc for most documentation
+/apidoc for the Epydoc-generated API docs
+
+參考:
+http://monklof.com/post/19/
