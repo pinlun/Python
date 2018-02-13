@@ -15,3 +15,55 @@ generator生成器
 >>> g = (x * x for x in range(10))
 >>> for n in g:
 ...     print(n)
+---------------------------------------------------------------------
+def fib(max):
+    n, a, b = 0, 0, 1
+    while n < max:
+        print(b)
+        a, b = b, a + b
+        n = n + 1
+    return 'done'
+    
+>>> fib(6)
+1
+1
+2
+3
+5
+8
+'done'
+fib上述這個函式類似生成器的概念，要把上述的fib函數變成生成器，只需要將print(b)
+，改為yield b。
+def fib(max):
+    n, a, b = 0, 0, 1
+    while n < max:
+        yield b
+        a, b = b, a + b
+        n = n + 1
+    return 'done'
+---------------------------------------------------------------------
+生成器和函數的差別
+函數是依照順序執行，遇到return或最後一行就返回。而生成器則是調用next()時執行
+，遇到yield時返回，再次執行時，從上次返回的yield處繼續執行。
+def odd():
+    print('step 1')
+    yield 1
+    print('step 2')
+    yield(3)
+    print('step 3')
+    yield(5)
+
+>>> o = odd()
+>>> next(o)
+step 1
+1
+>>> next(o)
+step 2
+3
+>>> next(o)
+step 3
+5
+>>> next(o)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
