@@ -1,0 +1,17 @@
+可以被next()函式調用並不斷返回下一個值的對象稱為迭代器Iterator。
+可以使用isinstance()判斷對象是否為Iterator
+>>> from collections import Iterator
+>>> isinstance((x for x in range(10)), Iterator)
+True
+-----------------------------------------------------------------
+但是其中可迭代對象不一定是迭代器，像list、tuple、dict、set、str、generator
+等可以用於for迴圈的類型，稱為可迭代對象Iterable，可以用isinstance()來
+判斷對象是否是Iterable。
+>>> from collections import Iterable
+>>> isinstance([], Iterable)
+True
+為什麼list、dict、str這些類型不是迭代器呢?
+這是因為迭代器的對象是一個數據流，該數據流可以被next()調用並不斷返回下一個
+數據，直到沒有數據時拋出錯誤訊息。可以把這個數據流看成是一個有序序列，但我
+們不能知道該序列的長度，只能不斷通過next()實現，所以迭代器的計算是惰性的，
+只有在需要下一個數據時他才會計算。
