@@ -1,0 +1,47 @@
+Decorator
+在代碼運行期間動態增加功能的方式，成為裝飾器。裝飾器本質上是一個函數或類，它可以讓
+其他函數或類在不需要任何代碼修改的前提下，增加額外的功能，裝飾器的返回值也式一個涵
+數或類的對象。他經常用在有切面需求的場景，比如:插入日誌、性能測試、事務處理、緩存
+、權限等場景。範例如下
+
+def foo():
+    print('i am foo')
+
+現在有一個新的需求，希望可以記錄函數執行的日誌
+
+def foo():
+    print('i am foo')
+    logging.info("foo is running")
+    
+如果其他函數也有相同需求，該怎麼做?
+我們可以重新定義一個函數，專門處理日誌
+
+def use_logging(func):
+    logging.warn("%s is running" % func.__name__)
+    func()
+    
+def foo():
+    print('i am foo')
+    
+use_logging(foo)
+
+但這樣就會產生在使用時不再是調用真正的原本函數，而是換成use_logging函數，
+這樣就破壞了原有代碼的結構，更好的方式是使用裝飾器
+
+簡單裝飾器
+def use_logging(func):
+    def wrapper():
+        logging.warn("%s is running" % func.__name__)
+        return func()   # 把 foo 当做参数传递进来时，执行func()就相当于执行foo()
+    return wrapper
+
+def foo():
+    print('i am foo')
+
+foo = use_logging(foo)  # 因为装饰器 use_logging(foo) 返回的时函数对象 wrapper，这条语句相当于  foo = wrapper
+foo()
+
+@放在函數開始定義的地方，就可以省月最後一步再次賦值的操作。
+@use_logging
+def foo():
+    print("i am foo")
