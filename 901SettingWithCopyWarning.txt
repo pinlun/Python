@@ -1,0 +1,33 @@
+SettingWithCopyWarning
+在對dataframe操作和轉換的時候一直出現的錯誤
+範例如下
+
+>>> print(df.head())
+Department Productline ProductType Yield
+ST001      FTA06-1     Fan         98%
+STU300     FTA06-1     Heat Pipe   98%
+STQ20      FTA06-1     Chassis     97%
+ST001      FHA06       Fan         98%
+Yield為字串想轉換成數字
+
+def depercent(x):
+    a = x.replace('%','')
+    a = int(float(a))*0.01
+    return a
+    
+df['Yield'] = df['Yield'].apply(lambda x: depercent(x))
+當執行上述程式碼時，都會出錯
+網路上找的解法都是要使用loc/iloc
+也就是
+A = df.loc[:,'Yield']
+A = A.apply(lambda x: depercent(x))
+df.loc[:, 'Yield'] = A
+但是還是出錯!
+
+只好將程式碼改成
+df.is_copy = False
+df['Yield'] = df.loc[:,'Yield'].apply(lambda x: depercent(x))
+也就是資料的操作將使用在原始資料上，並不是在複製的資料
+且也不會出現錯誤訊息
+
+但前提是資料操作確實是要在原始資料上才可以如此設定
