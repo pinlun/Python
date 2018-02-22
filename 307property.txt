@@ -1,0 +1,62 @@
+property
+擁有三個特點
+1.將類方法轉換為只讀屬性
+2.重新實現一個屬性的setter和getter方法
+3.減緩程式碼重新建構的成本
+
+以下是property的語法
+class property([fget[, fset[, fdel[, doc]]])
+fget獲取屬性的函數
+fset設置屬性的函數
+fdel刪除屬性的函數
+doc屬性描述訊息
+
+範例如下
+#1
+class Person(object):
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+    
+    @property
+    def full_name(self):
+        return "%s %s" % (self.first_name, self.last_name)
+        
+>>> person = Person("Mike", "Brad")
+>>> person.full_name
+'Mike Brad'
+上述範例，呈現出property將方法改變成屬性，用點符號即可以訪問他
+
+#2使用property取代setter和getter
+from decimal import Decimal
+class fees(object):
+    def __init__(self):
+        self.fee = None
+    
+    def get_fee(self):
+        return self.fee
+        
+    def set_fee(self, value):
+        if isinstance(vale, str):
+            self.fee = Decimal(value)
+        elif isinstance(value, Decimal):
+            self.fee = value
+            
+要使用這個類，必須定義使用的方法
+>>> f = fees()
+>>> f.set_fee("1")
+>>> f.get_fee()
+Decimal('1')
+        
+只要將程式碼加了下面這一行
+fee = property(get_fee, set_fee)
+
+>>> f = Fees()
+>>> f.set_fee("1")
+>>> f.fee
+Decimal('1')
+>>> f.fee = "2"
+>>> f.get_fee()
+Decimal('2')
+
+轉換成@property的寫法如下
