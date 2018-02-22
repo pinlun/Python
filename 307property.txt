@@ -60,3 +60,23 @@ Decimal('1')
 Decimal('2')
 
 轉換成@property的寫法如下
+from decimal import Decimal
+class Fees(object):
+    def __init__(self):
+        self.fee = None
+     
+    @property
+    def fee(self):
+        return self.fee
+        
+    @fee.setter
+    def fee(self, value):
+        if isinstance(vale, str):
+            self.fee = Decimal(value)
+        elif isinstance(value, Decimal):
+            self.fee = value
+
+
+>>> f = Fees()
+>>> f.fee = "1"
+
