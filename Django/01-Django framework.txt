@@ -1,0 +1,36 @@
+
+在當前目錄創建Django
+$ django-admin startproject DjangoTest
+
+目錄
+DjangoTest
+|-- DjangoTest
+|   |-- __init__.py
+|   |-- settings.py
+|   |-- urls.py
+|   `-- wsgi.py
+`-- manage.py
+
+manage.py:提供專案管理的功能，包含建立app、啟動Server和shell等
+settings.py:設定檔
+urls.py:url配置檔
+wsgi.py:網頁伺服器和Django的介面設定檔
+
+Django採用MVC的框架，傳統MVC為:Model模型、View視圖、Control控制器，M為管理應用程序的狀態，
+V負責把數據格式化呈現給用戶，C是接受外部用戶操作，根據操作訪問模型獲取數據，並調用視圖顯示
+這些數據。在Django中則稱為MTV模式:Model模型、Template模板、Views視圖，M為數據存取，包含
+如何存取、如何驗證有效性，T是表現層，像是如何在頁面進行顯示，V表示業務邏輯，即為模板和模型
+間的橋樑。
+
+Django流程介紹
+模型        視圖       模板     控制器    
+      
+                     ←     ←  根據URL匹配相對應視圖   
+      數據        ↙             ↖
+Models →  View.py → Template → URL
+       ←         數據
+  ↓取數據                   ↘   ↑ 在頁面輸入URL
+
+數據庫                        使用者  
+
+參考:http://blog.csdn.net/shentong1/article/details/78813261
