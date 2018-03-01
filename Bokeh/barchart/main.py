@@ -1,4 +1,4 @@
-# bokeh serve --show factory
+# bokeh serve --show barchart
 # library
 from os.path import dirname, join
 
