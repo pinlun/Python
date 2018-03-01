@@ -1,0 +1,46 @@
+
+將server運行起來，在瀏覽器中使用url:127.0.0.1:8000
+$ python manage.py runserver
+
+Path路徑設定
+----------------------------------------------------------------------------
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR指的是專案目錄，os.path.dirname會找出該檔所在目錄的路徑
+
+除錯模式設定
+----------------------------------------------------------------------------
+DEBUG = True
+TEMPLATE_DEBUG = True
+在網站真正上限時要改成關閉
+
+Application安裝
+----------------------------------------------------------------------------
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+)
+可以針對不同功能寫app，再將其組合成一個project
+
+根URL配置
+----------------------------------------------------------------------------
+ROOT_URLCONF = 'DjangoTest.urls'
+預設是當前目錄底下的urls.py
+
+資料庫設定
+----------------------------------------------------------------------------
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+預設是sqlite3，也支持PostgreSQL、MySQL、Oracle
+
+語言與時區
+----------------------------------------------------------------------------
+LANGUAGE_CODE = 'zh-TW'
+TIME_ZONE = 'Asia/Taipei'
