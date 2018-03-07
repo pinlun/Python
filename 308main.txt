@@ -1,0 +1,22 @@
+使用時機
+一般我們在撰寫python的時候，很少會用到if __name__ == "__main__":這句話，
+因為我們在執行pyt檔時沒有牽扯到其他目錄底下的py檔，但當需要import其他py檔
+時，就需要使用這個if __name__ == "__main__":的方式
+範例如下
+double.py
+def square(x):
+    return x^2
+
+if __name__ == "__main__":
+    print(square(2))
+    
+如果單獨執行double.py這個py檔，將會顯示4
+但若import到別的py檔將有不同效果
+範例如下
+test.py
+import double
+print(double.square(3))
+將只顯示9
+
+__name__為module內置屬性，因此當py檔直接被執行其__name__等於"__main__"
+若該py檔當作module被import至其他py檔，其__name__則為該module的名字
