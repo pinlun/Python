@@ -8,6 +8,7 @@ Matplotlib
 Seaborn
 Bokeh
 Plotly
+Dash
 ------------------------------------
 機器學習
 SciKit-Learn
