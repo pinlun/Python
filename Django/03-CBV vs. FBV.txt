@@ -1,0 +1,51 @@
+FBV
+function base views
+
+CBV
+class base views
+
+用CBV的優點
+1)提高代碼的重複使用姓，可以使用面向對象的技術，如mixin多繼承
+2)可以使用不同函數針對不同HTTP方法處理，而不是通過很多if判斷，提高代碼可讀性
+--------------------------------------------------------------------------------------------
+Mixin範例如下:
+
+class BaseClass:
+  def test(self):
+    print('BaseClass')
+    
+class Mixin1:
+  def ability1(self):
+    print('Ability1')
+    
+  def text(self):
+    print('Mixin1')
+    
+    
+class Mixin2:
+  def ability(self):
+    peint('Ability2')
+    
+  def test(self):
+    print('Mixin2')
+    
+class Myclass(Mixin2, Mixin1, BaseClass):
+  pass
+  
+
+>>>mc = Myclass()
+>>>mc.ability1()
+Ability1
+>>>mc.ability2()
+Ability2
+>>>mc.test()
+Mixin2
+
+※繼承的順序為由右至左
+--------------------------------------------------------------------------------------------
+Django有許多不同種類的view類別，全部來自最基礎的view類別，透過
+django.views.generic模組下的各種mixin，可以讓view類別更多功能
+view可以分為三類
+generic view 一般沒有特殊需求(View/TemplateView)
+display view 與model結合可展示資料庫(ListView/DetailView)
+edit view 修改資料庫(FormView)
