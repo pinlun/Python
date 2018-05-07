@@ -1,0 +1,94 @@
+##html
+<div style="overflow:auto">
+ <table class="table table-striped" style="align:center;display:none;width:auto">
+      <tr>
+          <th bgcolor="#476984" style="color:white" class="text-nowrap">生產日期</th>
+          <th bgcolor="#476984" style="color:white" class="text-nowrap">生產時間</th>
+          <th bgcolor="#476984" style="color:white" class="text-nowrap">批號</th>
+          {% for data in querytitle %} 
+          <th bgcolor="#476984" style="color:white" class="text-nowrap">{{data}}</th>
+          {% endfor %}
+
+      </tr>
+      <tbody id="tbbody">
+    {% for data in tquerylist %}  
+    <tr> 
+        {% for cell in data.0 %}
+        <td>{{ cell }}</td>
+        {% endfor %}
+        {% for cell in data.1 %}
+        <td>{{ cell }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+      </tbody>
+    </table>
+</div>
+
+##script
+$("#qcboxbtn2").click(function(){
+  $('.table').hide();
+  $('#dateError').css('display', 'none');
+  var item=$("#ItemList").find('option:selected').text();
+  var startDate=$(".date")[0].value.replace(/-/g, "");
+  var endDate=$(".date")[1].value.replace(/-/g, "");
+  var sampleNum=$("#sampleNum").find('option:selected').text();
+  var smplcheck=$("#collapse1")[0].checked;
+  $.ajax({
+    type: 'GET',
+    dataType: 'html',
+    data: {
+      	  'smplcheck': smplcheck,
+          'ItemList': item,
+          'startDate': startDate,
+          'endDate': endDate,
+          'sampleNum': sampleNum
+        }, 
+    success: function(data){
+      var result = $('<div />').append(data).find('.table').html();
+      var status = $('<div />').append(data).find('#dateError')["0"].attributes[2].nodeValue
+
+      if (status == 1){
+        $('.table').html(result);
+        $('.table').show();
+      }else{
+        $('#dateError').css('display', '');
+      }
+      
+    }
+  });
+  
+ #AJAX參數說明
+ ajax當中的參數：
+
+url(String)：指定要進行呼叫的位址。
+
+data(Map)：傳送至Server的資料，必須為Key/Value格式，GET請求中將附加在URL後面。
+
+type(String)：請求方式，POST/GET。(預設為GET)
+
+dataType(String)：預期Server傳回的資料類型，如果沒指定，jQuery會根據HTTP MIME Type自動選擇以responseXML或responseText傳入你的success callback。可選的資料類型有：
+           xml：傳回可用jQuery處理的XML。
+           html：傳回HTML，包含script tags。
+           script：傳回可執行的JavaScript。
+           json：傳回JSON。
+           jsonp：JSONP 格式。在URL加上?callback=?參數，並在Server端配合送回此jsonp callback。
+           text：傳回純文字字串。
+
+success：請求成功時執行函式。
+                function (data, textStatus) {
+                    // data 可以是 xmlDoc, jsonObj, html, text, 但還是要參考datatype                          
+                }
+
+
+error：請求失敗時執行函式。
+           function (xhr, ajaxOptions, thrownError) {
+                   //通常ajaxOptions或thrownError只有一個有值
+           } 
+                  
+
+
+complete：請求完成時執行的函式(不論結果是success或error)。
+                 function (XMLHttpRequest, textStatus) {
+                   // the options for this ajax request
+                 }
