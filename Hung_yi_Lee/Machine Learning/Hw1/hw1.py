@@ -64,3 +64,47 @@ with open('/Users/pinlunhuang/Desktop/PinTech/hw1/predictions.csv','w') as f:
         f.write('id,value\n')
         for i in range(len(test_y)):
             f.write('id_'+str(i)+','+str(round(test_y[i],2))+'\n')
+
+            
+#regularization
+#%%
+def gradient_descent(x, y,theta, iterations, learning_rate, lambda_):
+    loss = np.zeros(iterations)
+    for i in range(iterations):
+        gradient_parameter = sum(2*np.dot( (y-( np.dot(x, theta)+constant )), -x) + (list(map(lambda x: x*0.2, theta))))
+        theta = theta - learning_rate*gradient_parameter
+        loss[i] = np.sum((y- (np.dot(x, theta)+constant))**2)/(2 * len(y))
+    
+    return theta, loss
+
+theta = [9.57567359e-1, 2.12971134e-13, -1.18948905e-14, -3.03888859e-14,
+  3.72618603e-15,  7.11930515e-15, -5.82867088e-15,  4.71844785e-16,
+  1.53089347e-16,  1.00000000e+00, -1.73472348e-18,  1.45716772e-16,
+ -1.19695920e-16,  1.56243291e-14, -8.67361738e-18, -5.20417043e-17,
+  1.13017234e-15, -4.44089210e-16]
+
+lambda_ =0.1
+theta_01, loss_01 = gradient_descent(train_x, train_y, theta ,1000, 0.000000000001, 0.1)
+theta_001, loss_001 = gradient_descent(train_x, train_y, theta ,1000, 0.000000000001, 0.01)
+theta_0001, loss_0001 = gradient_descent(train_x, train_y, theta ,1000, 0.000000000001, 0.001)
+
+
+#plot the Error v.s Training Epoch
+import matplotlib.pyplot as plt
+fig1, ax1 = plt.subplots()  
+ax1.plot(np.arange(1000), loss_01, 'r')  
+ax1.set_xlabel('Iterations')  
+ax1.set_ylabel('Cost')  
+ax1.set_title('Error vs. Training Epoch')
+
+fig2, ax2 = plt.subplots()  
+ax2.plot(np.arange(1000), loss_001, 'r')  
+ax2.set_xlabel('Iterations')  
+ax2.set_ylabel('Cost')  
+ax2.set_title('Error vs. Training Epoch')
+
+fig3, ax3 = plt.subplots()  
+ax3.plot(np.arange(1000), loss_0001, 'r')  
+ax3.set_xlabel('Iterations')  
+ax3.set_ylabel('Cost')  
+ax3.set_title('Error vs. Training Epoch')
