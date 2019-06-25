@@ -1,0 +1,13 @@
+import jaydebeapi as jdbc
+from glob import glob
+import pandas as pd
+
+jar_files = glob('/data/anaconda/JDBC/*.jar')
+jar_files.extend(glob('/usr/hdp/current/hive-client/jdbc/*.jar'))
+conn_hive = jdbc.connect(jclassname="org.apache.hive.jdbc.HiveDriver",
+                          url="jdbc:hive2://xx.xx.xx.xxx:10000/hive",
+                          driver_args=['pinhuang',''],
+                          jars=jar_files
+                          )
+sql_string1='''select * from bstage.sr210321_sxs_mtreq where start_date="2019-01-20"'''
+data = pd.read_sql(sql_string1, conn_hive)
